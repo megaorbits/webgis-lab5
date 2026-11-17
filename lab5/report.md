@@ -7,7 +7,13 @@
 **Instructor:** Dr. Shahid Nawaz Khan  
 **Project folder:** `C:\webgis-lab\lab5`  
 **Repository:** https://github.com/megaorbits/webgis-lab5  
-**Local Application URL:** http://127.0.0.1:8000/  
+
+### Application Endpoints
+- **Interactive Map:** http://127.0.0.1:8000/
+- **API Root:** http://127.0.0.1:8000/api/
+- **Districts API:** http://127.0.0.1:8000/api/districts/
+- **Facilities API:** http://127.0.0.1:8000/api/facilities/
+- **Django Admin:** http://127.0.0.1:8000/admin/  
 
 ---
 
@@ -51,9 +57,13 @@ This confirms that all 160 districts of Pakistan from the `webgis` PostGIS datab
 
 **2.1** `DistrictSerializer` in `districts/serializers.py` inherits from `GeoFeatureModelSerializer` with `geo_field = "geom"` and attributes `["id", "name", "province", "pcode", "pop_2023", "area_km2"]`. `DistrictViewSet` is configured as a `ReadOnlyModelViewSet` to protect administrative boundaries.
 
-**2.2** Browsable API detail view at `/api/districts/1/` showing GeoJSON feature structure:
+**2.2** Browsable API Root at `/api/` and detail view at `/api/districts/1/` showing GeoJSON feature structure:
+
+![API Root Browsable Interface](extra%20api%20screenshots/api%20root.png)
 
 ![Checkpoint 2: District Detail in Browsable API](screenshots/02_district_api.png)
+
+![Districts API Endpoint FeatureCollection](extra%20api%20screenshots/districts%20api.png)
 
 - **Network size of `/api/districts/?format=json` (all 160 districts):** **934,929 bytes (~913 KB)**.
 
@@ -134,6 +144,8 @@ Result: **HTTP 201 Created** with dynamically calculated `"district": "Islamabad
 
 ![Checkpoint 5: Facility API 201 Success](screenshots/07_facility_api_success.png)
 
+![Facilities API Endpoint GeoJSON FeatureCollection](extra%20api%20screenshots/facilities%20api.png)
+
 **5.4 Three Validation Error Tests:**
 1. **Arabian Sea Coordinates `[64.0, 23.0]`:**
    - **Status:** `HTTP 400 Bad Request`
@@ -158,6 +170,8 @@ Result: **HTTP 201 Created** with dynamically calculated `"district": "Islamabad
 - The tile layer was upgraded to include CARTO Positron and Esri World Topographic layers with a layer control to ensure 100% reliable basemap tile rendering without OpenStreetMap volunteer-server 403 blocks.
 
 ![Checkpoint 6: Interactive Add Facility Form](screenshots/09_add_facility_form.png)
+
+![Full Interactive Map with Districts and Facilities](extra%20api%20screenshots/interactive%20map%20.png)
 
 **6.2 Security Test Observations:**
 1. **Arabian Sea Test:** Clicking south of Karachi displayed the server error message *"This point is not inside any district of Pakistan."* inline within the form without creating a marker.
