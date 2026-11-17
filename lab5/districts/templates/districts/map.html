@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="origin">
   <title>Facilities and districts</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <style>
@@ -44,29 +45,11 @@
       minZoom: 5
     }).setView([33.6, 73.0], 9);
 
-    // Base map layers (CARTO Positron as reliable default, Esri and OSM available)
-    const cartoLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      subdomains: 'abcd',
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+      attribution: '&copy; OpenStreetMap contributors',
+      referrerPolicy: 'origin'
     }).addTo(map);
-
-    const esriLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-      maxZoom: 18,
-      attribution: 'Tiles &copy; Esri — World Topographic Map'
-    });
-
-    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      subdomains: ['a', 'b', 'c'],
-      maxZoom: 19,
-      attribution: '&copy; OpenStreetMap contributors'
-    });
-
-    L.control.layers({
-      "CARTO Positron (OSM)": cartoLayer,
-      "Esri Topo Map": esriLayer,
-      "OpenStreetMap": osmLayer
-    }, null, { position: 'topright' }).addTo(map);
 
     const status = document.getElementById('status');
     const districtLayer = L.geoJSON(null, {
